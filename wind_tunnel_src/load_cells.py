@@ -1,4 +1,4 @@
-from hx711 import HX711
+from hx711py.hx711 import HX711
 import time
 
 class LoadCell:
@@ -15,10 +15,16 @@ class LoadCell:
         self.hx.power_up()
         return weight
 
-lift_cell = LoadCell(dout_pin=11, sck_pin=15, reference_unit=1.47)  # replace with your reference unit
-drag_cell = LoadCell(dout_pin=13, sck_pin=16, reference_unit=-3.7)  # replace with your reference unit
+lift_cell = LoadCell(dout_pin=17, sck_pin=22, reference_unit=-387.08)  
+drag_cell = LoadCell(dout_pin=27, sck_pin=23, reference_unit=-403.64)  
 
 def get_lift_and_drag():
     lift = lift_cell.get_weight()
     drag = drag_cell.get_weight()
     return lift, drag
+
+if __name__ == "__main__":
+    while True:
+        lift, drag = get_lift_and_drag()
+        print(f"Lift = {lift:.2f} g\tDrag = {drag:.2f} g")
+        time.sleep(0.5)  
